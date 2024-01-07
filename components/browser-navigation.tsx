@@ -1,3 +1,4 @@
+import { ScrollView } from "react-native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -26,7 +27,7 @@ const BrowserNavigation: React.FC<BrowserNavigationProps> = ({ root, path, onPat
         }
     }
     return (
-        <View style={styles.tools}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tools}>
             <TouchableOpacity onPress={homeClicked}>
                 <Icon name={"home"} size={20} />
             </TouchableOpacity>
@@ -38,7 +39,7 @@ const BrowserNavigation: React.FC<BrowserNavigationProps> = ({ root, path, onPat
                     </TouchableOpacity>
                 </View>)})
             }
-        </View>
+        </ScrollView>
     );
 }
 
@@ -50,7 +51,8 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         borderBottomColor:"grey",
         borderBottomWidth: 0.5,
-        gap: 6
+        gap: 6,
+        width: "100%"
     },
     inner:{
         flexDirection: "row",
