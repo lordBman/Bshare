@@ -1,11 +1,15 @@
 package com.bsoft.bshare
 
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.net.wifi.WifiManager
 import android.net.wifi.p2p.WifiP2pManager
+import android.os.Build
 import android.util.Log
+import com.bsoft.bshare.services.FileService
 
 class WiFiDirectFileTransferApp : Application() {
     val wifiP2pManager: WifiP2pManager? by lazy {
@@ -35,6 +39,16 @@ class WiFiDirectFileTransferApp : Application() {
                 return@let null
             }
             return@let wifiP2pManager!!.initialize(this, mainLooper, null)
+        }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+
+        val notificationChannel = NotificationChannel(FileService.FileServiceStartNotification, "File Service Notification", NotificationManager.IMPORTANCE_LOW)
+
+        (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?).let {
+            it?.createNotificationChannel(notificationChannel)
         }
     }
 
